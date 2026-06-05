@@ -71,7 +71,49 @@ namespace Projeto_crud
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("Dados do usuário editado com sucesso!");
 
+            SqlCommand comando = new SqlCommand("update CadastroUsuarios set Nome=@Nome, Email=@Email, Telefone=@Telefone, Estado=@Estado, Cidade=@Cidade WHERE ID=@ID", connection);
+            comando.Parameters.Add("@ID", SqlDbType.Int).Value = txtEditar.Text;
+            comando.Parameters.Add("@Nome", SqlDbType.VarChar).Value = txtNome.Text;
+            comando.Parameters.Add("@Email", SqlDbType.VarChar).Value = txtEmail.Text;
+            comando.Parameters.Add("@Estado", SqlDbType.VarChar).Value = txtEstado.Text;
+            comando.Parameters.Add("@Cidade", SqlDbType.VarChar).Value = txtCidade.Text;
+            comando.Parameters.Add("@Telefone", SqlDbType.VarChar).Value = maskTelefone.Text;
+
+            try
+            {
+                connection.Open();
+                comando.ExecuteNonQuery();
+                MostrarTela();
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                connection.Close();
+
+            }
+        }
+
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            SqlCommand comando = new SqlCommand("Delete FROM CadastroUsuarios where ID=@ID", connection);
+            comando.Parameters.Add("@ID", SqlDbType.Int).Value = Convert.ToInt32(txtId.Text);
+            try
+            {
+
+                connection.Open();
+                comando.ExecuteNonQuery();
+                MessageBox.Show("Item excluido com sucesso!");
+                MostrarTela();
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                connection.Close();
+            }
         }
     }
 }

@@ -212,6 +212,7 @@
             this.btnExcluir.TabIndex = 76;
             this.btnExcluir.Text = "Excluir";
             this.btnExcluir.UseVisualStyleBackColor = false;
+            this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
             // 
             // lblTelefone
             // 
